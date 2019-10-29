@@ -1,0 +1,11 @@
+schema:
+  - "./graphql-schema.graphql"
+documents:
+  - "./src/data/*.graphql"
+generates:
+  ./src/generated-models.tsx:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+require: []
