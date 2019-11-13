@@ -1,7 +1,7 @@
 schema:
-  - "./graphql-schema.graphql"
+  - "./schema.graphql"
 documents:
-  - "./src/data/*.graphql"
+  - "./src/**/*.graphql"
 generates:
   ./src/generated-models.tsx:
     plugins:

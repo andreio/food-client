@@ -1,0 +1,1596 @@
+# source: http://notwasted2.herokuapp.com/v1/graphql
+# timestamp: Wed Nov 13 2019 23:51:06 GMT+0100 (CET)
+
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+scalar float8
+
+"""
+expression to compare columns of type float8. All fields are combined with logical 'AND'.
+"""
+input float8_comparison_exp {
+  _eq: float8
+  _gt: float8
+  _gte: float8
+  _in: [float8!]
+  _is_null: Boolean
+  _lt: float8
+  _lte: float8
+  _neq: float8
+  _nin: [float8!]
+}
+
+"""
+columns and relationships of "food"
+"""
+type food {
+  created_at: timestamptz!
+  description: String!
+  id: uuid!
+  name: String!
+  price: money!
+  restaurant: uuid!
+  type: uuid!
+  url: String!
+}
+
+"""
+aggregated selection of "food"
+"""
+type food_aggregate {
+  aggregate: food_aggregate_fields
+  nodes: [food!]!
+}
+
+"""
+aggregate fields of "food"
+"""
+type food_aggregate_fields {
+  count(columns: [food_select_column!], distinct: Boolean): Int
+  max: food_max_fields
+  min: food_min_fields
+}
+
+"""
+order by aggregate values of table "food"
+"""
+input food_aggregate_order_by {
+  count: order_by
+  max: food_max_order_by
+  min: food_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "food"
+"""
+input food_arr_rel_insert_input {
+  data: [food_insert_input!]!
+  on_conflict: food_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "food". All fields are combined with a logical 'AND'.
+"""
+input food_bool_exp {
+  _and: [food_bool_exp]
+  _not: food_bool_exp
+  _or: [food_bool_exp]
+  created_at: timestamptz_comparison_exp
+  description: String_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  price: money_comparison_exp
+  restaurant: uuid_comparison_exp
+  type: uuid_comparison_exp
+  url: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "food"
+"""
+enum food_constraint {
+  """unique or primary key constraint"""
+  food_pkey
+}
+
+"""
+input type for inserting data into table "food"
+"""
+input food_insert_input {
+  created_at: timestamptz
+  description: String
+  id: uuid
+  name: String
+  price: money
+  restaurant: uuid
+  type: uuid
+  url: String
+}
+
+"""aggregate max on columns"""
+type food_max_fields {
+  created_at: timestamptz
+  description: String
+  name: String
+  url: String
+}
+
+"""
+order by max() on columns of table "food"
+"""
+input food_max_order_by {
+  created_at: order_by
+  description: order_by
+  name: order_by
+  url: order_by
+}
+
+"""aggregate min on columns"""
+type food_min_fields {
+  created_at: timestamptz
+  description: String
+  name: String
+  url: String
+}
+
+"""
+order by min() on columns of table "food"
+"""
+input food_min_order_by {
+  created_at: order_by
+  description: order_by
+  name: order_by
+  url: order_by
+}
+
+"""
+response of any mutation on the table "food"
+"""
+type food_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [food!]!
+}
+
+"""
+input type for inserting object relation for remote table "food"
+"""
+input food_obj_rel_insert_input {
+  data: food_insert_input!
+  on_conflict: food_on_conflict
+}
+
+"""
+on conflict condition type for table "food"
+"""
+input food_on_conflict {
+  constraint: food_constraint!
+  update_columns: [food_update_column!]!
+  where: food_bool_exp
+}
+
+"""
+ordering options when selecting data from "food"
+"""
+input food_order_by {
+  created_at: order_by
+  description: order_by
+  id: order_by
+  name: order_by
+  price: order_by
+  restaurant: order_by
+  type: order_by
+  url: order_by
+}
+
+"""
+select columns of table "food"
+"""
+enum food_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  price
+
+  """column name"""
+  restaurant
+
+  """column name"""
+  type
+
+  """column name"""
+  url
+}
+
+"""
+input type for updating data in table "food"
+"""
+input food_set_input {
+  created_at: timestamptz
+  description: String
+  id: uuid
+  name: String
+  price: money
+  restaurant: uuid
+  type: uuid
+  url: String
+}
+
+"""
+columns and relationships of "food_type"
+"""
+type food_type {
+  id: uuid!
+  name: String!
+}
+
+"""
+aggregated selection of "food_type"
+"""
+type food_type_aggregate {
+  aggregate: food_type_aggregate_fields
+  nodes: [food_type!]!
+}
+
+"""
+aggregate fields of "food_type"
+"""
+type food_type_aggregate_fields {
+  count(columns: [food_type_select_column!], distinct: Boolean): Int
+  max: food_type_max_fields
+  min: food_type_min_fields
+}
+
+"""
+order by aggregate values of table "food_type"
+"""
+input food_type_aggregate_order_by {
+  count: order_by
+  max: food_type_max_order_by
+  min: food_type_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "food_type"
+"""
+input food_type_arr_rel_insert_input {
+  data: [food_type_insert_input!]!
+  on_conflict: food_type_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "food_type". All fields are combined with a logical 'AND'.
+"""
+input food_type_bool_exp {
+  _and: [food_type_bool_exp]
+  _not: food_type_bool_exp
+  _or: [food_type_bool_exp]
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "food_type"
+"""
+enum food_type_constraint {
+  """unique or primary key constraint"""
+  food_type_pkey
+}
+
+"""
+input type for inserting data into table "food_type"
+"""
+input food_type_insert_input {
+  id: uuid
+  name: String
+}
+
+"""aggregate max on columns"""
+type food_type_max_fields {
+  name: String
+}
+
+"""
+order by max() on columns of table "food_type"
+"""
+input food_type_max_order_by {
+  name: order_by
+}
+
+"""aggregate min on columns"""
+type food_type_min_fields {
+  name: String
+}
+
+"""
+order by min() on columns of table "food_type"
+"""
+input food_type_min_order_by {
+  name: order_by
+}
+
+"""
+response of any mutation on the table "food_type"
+"""
+type food_type_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [food_type!]!
+}
+
+"""
+input type for inserting object relation for remote table "food_type"
+"""
+input food_type_obj_rel_insert_input {
+  data: food_type_insert_input!
+  on_conflict: food_type_on_conflict
+}
+
+"""
+on conflict condition type for table "food_type"
+"""
+input food_type_on_conflict {
+  constraint: food_type_constraint!
+  update_columns: [food_type_update_column!]!
+  where: food_type_bool_exp
+}
+
+"""
+ordering options when selecting data from "food_type"
+"""
+input food_type_order_by {
+  id: order_by
+  name: order_by
+}
+
+"""
+select columns of table "food_type"
+"""
+enum food_type_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "food_type"
+"""
+input food_type_set_input {
+  id: uuid
+  name: String
+}
+
+"""
+update columns of table "food_type"
+"""
+enum food_type_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+"""
+update columns of table "food"
+"""
+enum food_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  price
+
+  """column name"""
+  restaurant
+
+  """column name"""
+  type
+
+  """column name"""
+  url
+}
+
+"""
+expression to compare columns of type Int. All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+scalar money
+
+"""
+expression to compare columns of type money. All fields are combined with logical 'AND'.
+"""
+input money_comparison_exp {
+  _eq: money
+  _gt: money
+  _gte: money
+  _in: [money!]
+  _is_null: Boolean
+  _lt: money
+  _lte: money
+  _neq: money
+  _nin: [money!]
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "food"
+  """
+  delete_food(
+    """filter the rows which have to be deleted"""
+    where: food_bool_exp!
+  ): food_mutation_response
+
+  """
+  delete data from the table: "food_type"
+  """
+  delete_food_type(
+    """filter the rows which have to be deleted"""
+    where: food_type_bool_exp!
+  ): food_type_mutation_response
+
+  """
+  delete data from the table: "restaurant"
+  """
+  delete_restaurant(
+    """filter the rows which have to be deleted"""
+    where: restaurant_bool_exp!
+  ): restaurant_mutation_response
+
+  """
+  delete data from the table: "user"
+  """
+  delete_user(
+    """filter the rows which have to be deleted"""
+    where: user_bool_exp!
+  ): user_mutation_response
+
+  """
+  insert data into the table: "food"
+  """
+  insert_food(
+    """the rows to be inserted"""
+    objects: [food_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: food_on_conflict
+  ): food_mutation_response
+
+  """
+  insert data into the table: "food_type"
+  """
+  insert_food_type(
+    """the rows to be inserted"""
+    objects: [food_type_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: food_type_on_conflict
+  ): food_type_mutation_response
+
+  """
+  insert data into the table: "restaurant"
+  """
+  insert_restaurant(
+    """the rows to be inserted"""
+    objects: [restaurant_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: restaurant_on_conflict
+  ): restaurant_mutation_response
+
+  """
+  insert data into the table: "user"
+  """
+  insert_user(
+    """the rows to be inserted"""
+    objects: [user_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: user_on_conflict
+  ): user_mutation_response
+
+  """
+  update data of the table: "food"
+  """
+  update_food(
+    """sets the columns of the filtered rows to the given values"""
+    _set: food_set_input
+
+    """filter the rows which have to be updated"""
+    where: food_bool_exp!
+  ): food_mutation_response
+
+  """
+  update data of the table: "food_type"
+  """
+  update_food_type(
+    """sets the columns of the filtered rows to the given values"""
+    _set: food_type_set_input
+
+    """filter the rows which have to be updated"""
+    where: food_type_bool_exp!
+  ): food_type_mutation_response
+
+  """
+  update data of the table: "restaurant"
+  """
+  update_restaurant(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: restaurant_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: restaurant_set_input
+
+    """filter the rows which have to be updated"""
+    where: restaurant_bool_exp!
+  ): restaurant_mutation_response
+
+  """
+  update data of the table: "user"
+  """
+  update_user(
+    """sets the columns of the filtered rows to the given values"""
+    _set: user_set_input
+
+    """filter the rows which have to be updated"""
+    where: user_bool_exp!
+  ): user_mutation_response
+}
+
+"""column ordering options"""
+enum order_by {
+  """in the ascending order, nulls last"""
+  asc
+
+  """in the ascending order, nulls first"""
+  asc_nulls_first
+
+  """in the ascending order, nulls last"""
+  asc_nulls_last
+
+  """in the descending order, nulls first"""
+  desc
+
+  """in the descending order, nulls first"""
+  desc_nulls_first
+
+  """in the descending order, nulls last"""
+  desc_nulls_last
+}
+
+scalar point
+
+"""
+expression to compare columns of type point. All fields are combined with logical 'AND'.
+"""
+input point_comparison_exp {
+  _eq: point
+  _gt: point
+  _gte: point
+  _in: [point!]
+  _is_null: Boolean
+  _lt: point
+  _lte: point
+  _neq: point
+  _nin: [point!]
+}
+
+"""query root"""
+type query_root {
+  """
+  fetch data from the table: "food"
+  """
+  food(
+    """distinct select on columns"""
+    distinct_on: [food_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [food_order_by!]
+
+    """filter the rows returned"""
+    where: food_bool_exp
+  ): [food!]!
+
+  """
+  fetch aggregated fields from the table: "food"
+  """
+  food_aggregate(
+    """distinct select on columns"""
+    distinct_on: [food_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [food_order_by!]
+
+    """filter the rows returned"""
+    where: food_bool_exp
+  ): food_aggregate!
+
+  """fetch data from the table: "food" using primary key columns"""
+  food_by_pk(id: uuid!): food
+
+  """
+  fetch data from the table: "food_type"
+  """
+  food_type(
+    """distinct select on columns"""
+    distinct_on: [food_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [food_type_order_by!]
+
+    """filter the rows returned"""
+    where: food_type_bool_exp
+  ): [food_type!]!
+
+  """
+  fetch aggregated fields from the table: "food_type"
+  """
+  food_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [food_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [food_type_order_by!]
+
+    """filter the rows returned"""
+    where: food_type_bool_exp
+  ): food_type_aggregate!
+
+  """fetch data from the table: "food_type" using primary key columns"""
+  food_type_by_pk(id: uuid!): food_type
+
+  """
+  fetch data from the table: "restaurant"
+  """
+  restaurant(
+    """distinct select on columns"""
+    distinct_on: [restaurant_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [restaurant_order_by!]
+
+    """filter the rows returned"""
+    where: restaurant_bool_exp
+  ): [restaurant!]!
+
+  """
+  fetch aggregated fields from the table: "restaurant"
+  """
+  restaurant_aggregate(
+    """distinct select on columns"""
+    distinct_on: [restaurant_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [restaurant_order_by!]
+
+    """filter the rows returned"""
+    where: restaurant_bool_exp
+  ): restaurant_aggregate!
+
+  """fetch data from the table: "restaurant" using primary key columns"""
+  restaurant_by_pk(id: uuid!): restaurant
+
+  """
+  fetch data from the table: "user"
+  """
+  user(
+    """distinct select on columns"""
+    distinct_on: [user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_order_by!]
+
+    """filter the rows returned"""
+    where: user_bool_exp
+  ): [user!]!
+
+  """
+  fetch aggregated fields from the table: "user"
+  """
+  user_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_order_by!]
+
+    """filter the rows returned"""
+    where: user_bool_exp
+  ): user_aggregate!
+
+  """fetch data from the table: "user" using primary key columns"""
+  user_by_pk(id: uuid!): user
+}
+
+"""
+columns and relationships of "restaurant"
+"""
+type restaurant {
+  address: point!
+  closing_hours: timetz!
+  id: uuid!
+  name: String!
+  rating: float8!
+  rating_count: Int!
+  starting_hours: timetz!
+  url: String
+}
+
+"""
+aggregated selection of "restaurant"
+"""
+type restaurant_aggregate {
+  aggregate: restaurant_aggregate_fields
+  nodes: [restaurant!]!
+}
+
+"""
+aggregate fields of "restaurant"
+"""
+type restaurant_aggregate_fields {
+  avg: restaurant_avg_fields
+  count(columns: [restaurant_select_column!], distinct: Boolean): Int
+  max: restaurant_max_fields
+  min: restaurant_min_fields
+  stddev: restaurant_stddev_fields
+  stddev_pop: restaurant_stddev_pop_fields
+  stddev_samp: restaurant_stddev_samp_fields
+  sum: restaurant_sum_fields
+  var_pop: restaurant_var_pop_fields
+  var_samp: restaurant_var_samp_fields
+  variance: restaurant_variance_fields
+}
+
+"""
+order by aggregate values of table "restaurant"
+"""
+input restaurant_aggregate_order_by {
+  avg: restaurant_avg_order_by
+  count: order_by
+  max: restaurant_max_order_by
+  min: restaurant_min_order_by
+  stddev: restaurant_stddev_order_by
+  stddev_pop: restaurant_stddev_pop_order_by
+  stddev_samp: restaurant_stddev_samp_order_by
+  sum: restaurant_sum_order_by
+  var_pop: restaurant_var_pop_order_by
+  var_samp: restaurant_var_samp_order_by
+  variance: restaurant_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "restaurant"
+"""
+input restaurant_arr_rel_insert_input {
+  data: [restaurant_insert_input!]!
+  on_conflict: restaurant_on_conflict
+}
+
+"""aggregate avg on columns"""
+type restaurant_avg_fields {
+  rating: Float
+  rating_count: Float
+}
+
+"""
+order by avg() on columns of table "restaurant"
+"""
+input restaurant_avg_order_by {
+  rating: order_by
+  rating_count: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "restaurant". All fields are combined with a logical 'AND'.
+"""
+input restaurant_bool_exp {
+  _and: [restaurant_bool_exp]
+  _not: restaurant_bool_exp
+  _or: [restaurant_bool_exp]
+  address: point_comparison_exp
+  closing_hours: timetz_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  rating: float8_comparison_exp
+  rating_count: Int_comparison_exp
+  starting_hours: timetz_comparison_exp
+  url: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "restaurant"
+"""
+enum restaurant_constraint {
+  """unique or primary key constraint"""
+  restaurant_name_key
+
+  """unique or primary key constraint"""
+  restaurant_pkey
+}
+
+"""
+input type for incrementing integer columne in table "restaurant"
+"""
+input restaurant_inc_input {
+  rating_count: Int
+}
+
+"""
+input type for inserting data into table "restaurant"
+"""
+input restaurant_insert_input {
+  address: point
+  closing_hours: timetz
+  id: uuid
+  name: String
+  rating: float8
+  rating_count: Int
+  starting_hours: timetz
+  url: String
+}
+
+"""aggregate max on columns"""
+type restaurant_max_fields {
+  closing_hours: timetz
+  name: String
+  rating: float8
+  rating_count: Int
+  starting_hours: timetz
+  url: String
+}
+
+"""
+order by max() on columns of table "restaurant"
+"""
+input restaurant_max_order_by {
+  closing_hours: order_by
+  name: order_by
+  rating: order_by
+  rating_count: order_by
+  starting_hours: order_by
+  url: order_by
+}
+
+"""aggregate min on columns"""
+type restaurant_min_fields {
+  closing_hours: timetz
+  name: String
+  rating: float8
+  rating_count: Int
+  starting_hours: timetz
+  url: String
+}
+
+"""
+order by min() on columns of table "restaurant"
+"""
+input restaurant_min_order_by {
+  closing_hours: order_by
+  name: order_by
+  rating: order_by
+  rating_count: order_by
+  starting_hours: order_by
+  url: order_by
+}
+
+"""
+response of any mutation on the table "restaurant"
+"""
+type restaurant_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [restaurant!]!
+}
+
+"""
+input type for inserting object relation for remote table "restaurant"
+"""
+input restaurant_obj_rel_insert_input {
+  data: restaurant_insert_input!
+  on_conflict: restaurant_on_conflict
+}
+
+"""
+on conflict condition type for table "restaurant"
+"""
+input restaurant_on_conflict {
+  constraint: restaurant_constraint!
+  update_columns: [restaurant_update_column!]!
+  where: restaurant_bool_exp
+}
+
+"""
+ordering options when selecting data from "restaurant"
+"""
+input restaurant_order_by {
+  address: order_by
+  closing_hours: order_by
+  id: order_by
+  name: order_by
+  rating: order_by
+  rating_count: order_by
+  starting_hours: order_by
+  url: order_by
+}
+
+"""
+select columns of table "restaurant"
+"""
+enum restaurant_select_column {
+  """column name"""
+  address
+
+  """column name"""
+  closing_hours
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  rating
+
+  """column name"""
+  rating_count
+
+  """column name"""
+  starting_hours
+
+  """column name"""
+  url
+}
+
+"""
+input type for updating data in table "restaurant"
+"""
+input restaurant_set_input {
+  address: point
+  closing_hours: timetz
+  id: uuid
+  name: String
+  rating: float8
+  rating_count: Int
+  starting_hours: timetz
+  url: String
+}
+
+"""aggregate stddev on columns"""
+type restaurant_stddev_fields {
+  rating: Float
+  rating_count: Float
+}
+
+"""
+order by stddev() on columns of table "restaurant"
+"""
+input restaurant_stddev_order_by {
+  rating: order_by
+  rating_count: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type restaurant_stddev_pop_fields {
+  rating: Float
+  rating_count: Float
+}
+
+"""
+order by stddev_pop() on columns of table "restaurant"
+"""
+input restaurant_stddev_pop_order_by {
+  rating: order_by
+  rating_count: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type restaurant_stddev_samp_fields {
+  rating: Float
+  rating_count: Float
+}
+
+"""
+order by stddev_samp() on columns of table "restaurant"
+"""
+input restaurant_stddev_samp_order_by {
+  rating: order_by
+  rating_count: order_by
+}
+
+"""aggregate sum on columns"""
+type restaurant_sum_fields {
+  rating: float8
+  rating_count: Int
+}
+
+"""
+order by sum() on columns of table "restaurant"
+"""
+input restaurant_sum_order_by {
+  rating: order_by
+  rating_count: order_by
+}
+
+"""
+update columns of table "restaurant"
+"""
+enum restaurant_update_column {
+  """column name"""
+  address
+
+  """column name"""
+  closing_hours
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  rating
+
+  """column name"""
+  rating_count
+
+  """column name"""
+  starting_hours
+
+  """column name"""
+  url
+}
+
+"""aggregate var_pop on columns"""
+type restaurant_var_pop_fields {
+  rating: Float
+  rating_count: Float
+}
+
+"""
+order by var_pop() on columns of table "restaurant"
+"""
+input restaurant_var_pop_order_by {
+  rating: order_by
+  rating_count: order_by
+}
+
+"""aggregate var_samp on columns"""
+type restaurant_var_samp_fields {
+  rating: Float
+  rating_count: Float
+}
+
+"""
+order by var_samp() on columns of table "restaurant"
+"""
+input restaurant_var_samp_order_by {
+  rating: order_by
+  rating_count: order_by
+}
+
+"""aggregate variance on columns"""
+type restaurant_variance_fields {
+  rating: Float
+  rating_count: Float
+}
+
+"""
+order by variance() on columns of table "restaurant"
+"""
+input restaurant_variance_order_by {
+  rating: order_by
+  rating_count: order_by
+}
+
+"""
+expression to compare columns of type String. All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+"""subscription root"""
+type subscription_root {
+  """
+  fetch data from the table: "food"
+  """
+  food(
+    """distinct select on columns"""
+    distinct_on: [food_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [food_order_by!]
+
+    """filter the rows returned"""
+    where: food_bool_exp
+  ): [food!]!
+
+  """
+  fetch aggregated fields from the table: "food"
+  """
+  food_aggregate(
+    """distinct select on columns"""
+    distinct_on: [food_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [food_order_by!]
+
+    """filter the rows returned"""
+    where: food_bool_exp
+  ): food_aggregate!
+
+  """fetch data from the table: "food" using primary key columns"""
+  food_by_pk(id: uuid!): food
+
+  """
+  fetch data from the table: "food_type"
+  """
+  food_type(
+    """distinct select on columns"""
+    distinct_on: [food_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [food_type_order_by!]
+
+    """filter the rows returned"""
+    where: food_type_bool_exp
+  ): [food_type!]!
+
+  """
+  fetch aggregated fields from the table: "food_type"
+  """
+  food_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [food_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [food_type_order_by!]
+
+    """filter the rows returned"""
+    where: food_type_bool_exp
+  ): food_type_aggregate!
+
+  """fetch data from the table: "food_type" using primary key columns"""
+  food_type_by_pk(id: uuid!): food_type
+
+  """
+  fetch data from the table: "restaurant"
+  """
+  restaurant(
+    """distinct select on columns"""
+    distinct_on: [restaurant_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [restaurant_order_by!]
+
+    """filter the rows returned"""
+    where: restaurant_bool_exp
+  ): [restaurant!]!
+
+  """
+  fetch aggregated fields from the table: "restaurant"
+  """
+  restaurant_aggregate(
+    """distinct select on columns"""
+    distinct_on: [restaurant_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [restaurant_order_by!]
+
+    """filter the rows returned"""
+    where: restaurant_bool_exp
+  ): restaurant_aggregate!
+
+  """fetch data from the table: "restaurant" using primary key columns"""
+  restaurant_by_pk(id: uuid!): restaurant
+
+  """
+  fetch data from the table: "user"
+  """
+  user(
+    """distinct select on columns"""
+    distinct_on: [user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_order_by!]
+
+    """filter the rows returned"""
+    where: user_bool_exp
+  ): [user!]!
+
+  """
+  fetch aggregated fields from the table: "user"
+  """
+  user_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_order_by!]
+
+    """filter the rows returned"""
+    where: user_bool_exp
+  ): user_aggregate!
+
+  """fetch data from the table: "user" using primary key columns"""
+  user_by_pk(id: uuid!): user
+}
+
+scalar timestamptz
+
+"""
+expression to compare columns of type timestamptz. All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+scalar timetz
+
+"""
+expression to compare columns of type timetz. All fields are combined with logical 'AND'.
+"""
+input timetz_comparison_exp {
+  _eq: timetz
+  _gt: timetz
+  _gte: timetz
+  _in: [timetz!]
+  _is_null: Boolean
+  _lt: timetz
+  _lte: timetz
+  _neq: timetz
+  _nin: [timetz!]
+}
+
+"""
+columns and relationships of "user"
+"""
+type user {
+  first_name: String!
+  id: uuid!
+  second_name: String!
+}
+
+"""
+aggregated selection of "user"
+"""
+type user_aggregate {
+  aggregate: user_aggregate_fields
+  nodes: [user!]!
+}
+
+"""
+aggregate fields of "user"
+"""
+type user_aggregate_fields {
+  count(columns: [user_select_column!], distinct: Boolean): Int
+  max: user_max_fields
+  min: user_min_fields
+}
+
+"""
+order by aggregate values of table "user"
+"""
+input user_aggregate_order_by {
+  count: order_by
+  max: user_max_order_by
+  min: user_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "user"
+"""
+input user_arr_rel_insert_input {
+  data: [user_insert_input!]!
+  on_conflict: user_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "user". All fields are combined with a logical 'AND'.
+"""
+input user_bool_exp {
+  _and: [user_bool_exp]
+  _not: user_bool_exp
+  _or: [user_bool_exp]
+  first_name: String_comparison_exp
+  id: uuid_comparison_exp
+  second_name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "user"
+"""
+enum user_constraint {
+  """unique or primary key constraint"""
+  user_pkey
+}
+
+"""
+input type for inserting data into table "user"
+"""
+input user_insert_input {
+  first_name: String
+  id: uuid
+  second_name: String
+}
+
+"""aggregate max on columns"""
+type user_max_fields {
+  first_name: String
+  second_name: String
+}
+
+"""
+order by max() on columns of table "user"
+"""
+input user_max_order_by {
+  first_name: order_by
+  second_name: order_by
+}
+
+"""aggregate min on columns"""
+type user_min_fields {
+  first_name: String
+  second_name: String
+}
+
+"""
+order by min() on columns of table "user"
+"""
+input user_min_order_by {
+  first_name: order_by
+  second_name: order_by
+}
+
+"""
+response of any mutation on the table "user"
+"""
+type user_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [user!]!
+}
+
+"""
+input type for inserting object relation for remote table "user"
+"""
+input user_obj_rel_insert_input {
+  data: user_insert_input!
+  on_conflict: user_on_conflict
+}
+
+"""
+on conflict condition type for table "user"
+"""
+input user_on_conflict {
+  constraint: user_constraint!
+  update_columns: [user_update_column!]!
+  where: user_bool_exp
+}
+
+"""
+ordering options when selecting data from "user"
+"""
+input user_order_by {
+  first_name: order_by
+  id: order_by
+  second_name: order_by
+}
+
+"""
+select columns of table "user"
+"""
+enum user_select_column {
+  """column name"""
+  first_name
+
+  """column name"""
+  id
+
+  """column name"""
+  second_name
+}
+
+"""
+input type for updating data in table "user"
+"""
+input user_set_input {
+  first_name: String
+  id: uuid
+  second_name: String
+}
+
+"""
+update columns of table "user"
+"""
+enum user_update_column {
+  """column name"""
+  first_name
+
+  """column name"""
+  id
+
+  """column name"""
+  second_name
+}
+
+scalar uuid
+
+"""
+expression to compare columns of type uuid. All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}

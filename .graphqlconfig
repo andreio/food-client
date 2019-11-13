@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "food": {
+      "schemaPath": "schema.graphql",
+      "extensions": {
+        "endpoints": {
+          "default": "http://notwasted2.herokuapp.com/v1/graphql"
+        }
+      }
+    }
+  }
+}

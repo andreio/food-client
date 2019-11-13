@@ -1,0 +1,14 @@
+query Restaurants {
+  restaurant_aggregate {
+    nodes {
+      address
+      closing_hours
+      name
+      rating
+      id
+      rating_count
+      starting_hours
+      url
+    }
+  }
+}

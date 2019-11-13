@@ -1,7 +1,0 @@
-query restaurants { 
-    restaurants { 
-    name
-    address
-    image
-    }
-}
