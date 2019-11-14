@@ -38,12 +38,16 @@ export type Float8_Comparison_Exp = {
 export type Food = {
    __typename?: 'food',
   created_at: Scalars['timestamptz'],
-  description: Scalars['String'],
+  description?: Maybe<Scalars['String']>,
+  /** An object relationship */
+  food_type?: Maybe<Food_Type>,
   id: Scalars['uuid'],
   name: Scalars['String'],
   price: Scalars['money'],
   restaurant: Scalars['uuid'],
-  type: Scalars['uuid'],
+  /** An object relationship */
+  restaurantByRestaurant: Restaurant,
+  type?: Maybe<Scalars['uuid']>,
   url: Scalars['String'],
 };
 
@@ -89,10 +93,12 @@ export type Food_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Food_Bool_Exp>>>,
   created_at?: Maybe<Timestamptz_Comparison_Exp>,
   description?: Maybe<String_Comparison_Exp>,
+  food_type?: Maybe<Food_Type_Bool_Exp>,
   id?: Maybe<Uuid_Comparison_Exp>,
   name?: Maybe<String_Comparison_Exp>,
   price?: Maybe<Money_Comparison_Exp>,
   restaurant?: Maybe<Uuid_Comparison_Exp>,
+  restaurantByRestaurant?: Maybe<Restaurant_Bool_Exp>,
   type?: Maybe<Uuid_Comparison_Exp>,
   url?: Maybe<String_Comparison_Exp>,
 };
@@ -107,10 +113,12 @@ export enum Food_Constraint {
 export type Food_Insert_Input = {
   created_at?: Maybe<Scalars['timestamptz']>,
   description?: Maybe<Scalars['String']>,
+  food_type?: Maybe<Food_Type_Obj_Rel_Insert_Input>,
   id?: Maybe<Scalars['uuid']>,
   name?: Maybe<Scalars['String']>,
   price?: Maybe<Scalars['money']>,
   restaurant?: Maybe<Scalars['uuid']>,
+  restaurantByRestaurant?: Maybe<Restaurant_Obj_Rel_Insert_Input>,
   type?: Maybe<Scalars['uuid']>,
   url?: Maybe<Scalars['String']>,
 };
@@ -175,10 +183,12 @@ export type Food_On_Conflict = {
 export type Food_Order_By = {
   created_at?: Maybe<Order_By>,
   description?: Maybe<Order_By>,
+  food_type?: Maybe<Food_Type_Order_By>,
   id?: Maybe<Order_By>,
   name?: Maybe<Order_By>,
   price?: Maybe<Order_By>,
   restaurant?: Maybe<Order_By>,
+  restaurantByRestaurant?: Maybe<Restaurant_Order_By>,
   type?: Maybe<Order_By>,
   url?: Maybe<Order_By>,
 };
@@ -674,6 +684,7 @@ export type Query_RootUser_By_PkArgs = {
 export type Restaurant = {
    __typename?: 'restaurant',
   address: Scalars['point'],
+  address_name?: Maybe<Scalars['String']>,
   closing_hours: Scalars['timetz'],
   id: Scalars['uuid'],
   name: Scalars['String'],
@@ -753,6 +764,7 @@ export type Restaurant_Bool_Exp = {
   _not?: Maybe<Restaurant_Bool_Exp>,
   _or?: Maybe<Array<Maybe<Restaurant_Bool_Exp>>>,
   address?: Maybe<Point_Comparison_Exp>,
+  address_name?: Maybe<String_Comparison_Exp>,
   closing_hours?: Maybe<Timetz_Comparison_Exp>,
   id?: Maybe<Uuid_Comparison_Exp>,
   name?: Maybe<String_Comparison_Exp>,
@@ -778,6 +790,7 @@ export type Restaurant_Inc_Input = {
 /** input type for inserting data into table "restaurant" */
 export type Restaurant_Insert_Input = {
   address?: Maybe<Scalars['point']>,
+  address_name?: Maybe<Scalars['String']>,
   closing_hours?: Maybe<Scalars['timetz']>,
   id?: Maybe<Scalars['uuid']>,
   name?: Maybe<Scalars['String']>,
@@ -790,6 +803,7 @@ export type Restaurant_Insert_Input = {
 /** aggregate max on columns */
 export type Restaurant_Max_Fields = {
    __typename?: 'restaurant_max_fields',
+  address_name?: Maybe<Scalars['String']>,
   closing_hours?: Maybe<Scalars['timetz']>,
   name?: Maybe<Scalars['String']>,
   rating?: Maybe<Scalars['float8']>,
@@ -800,6 +814,7 @@ export type Restaurant_Max_Fields = {
 
 /** order by max() on columns of table "restaurant" */
 export type Restaurant_Max_Order_By = {
+  address_name?: Maybe<Order_By>,
   closing_hours?: Maybe<Order_By>,
   name?: Maybe<Order_By>,
   rating?: Maybe<Order_By>,
@@ -811,6 +826,7 @@ export type Restaurant_Max_Order_By = {
 /** aggregate min on columns */
 export type Restaurant_Min_Fields = {
    __typename?: 'restaurant_min_fields',
+  address_name?: Maybe<Scalars['String']>,
   closing_hours?: Maybe<Scalars['timetz']>,
   name?: Maybe<Scalars['String']>,
   rating?: Maybe<Scalars['float8']>,
@@ -821,6 +837,7 @@ export type Restaurant_Min_Fields = {
 
 /** order by min() on columns of table "restaurant" */
 export type Restaurant_Min_Order_By = {
+  address_name?: Maybe<Order_By>,
   closing_hours?: Maybe<Order_By>,
   name?: Maybe<Order_By>,
   rating?: Maybe<Order_By>,
@@ -854,6 +871,7 @@ export type Restaurant_On_Conflict = {
 /** ordering options when selecting data from "restaurant" */
 export type Restaurant_Order_By = {
   address?: Maybe<Order_By>,
+  address_name?: Maybe<Order_By>,
   closing_hours?: Maybe<Order_By>,
   id?: Maybe<Order_By>,
   name?: Maybe<Order_By>,
@@ -867,6 +885,8 @@ export type Restaurant_Order_By = {
 export enum Restaurant_Select_Column {
   /** column name */
   Address = 'address',
+  /** column name */
+  AddressName = 'address_name',
   /** column name */
   ClosingHours = 'closing_hours',
   /** column name */
@@ -886,6 +906,7 @@ export enum Restaurant_Select_Column {
 /** input type for updating data in table "restaurant" */
 export type Restaurant_Set_Input = {
   address?: Maybe<Scalars['point']>,
+  address_name?: Maybe<Scalars['String']>,
   closing_hours?: Maybe<Scalars['timetz']>,
   id?: Maybe<Scalars['uuid']>,
   name?: Maybe<Scalars['String']>,
@@ -951,6 +972,8 @@ export type Restaurant_Sum_Order_By = {
 export enum Restaurant_Update_Column {
   /** column name */
   Address = 'address',
+  /** column name */
+  AddressName = 'address_name',
   /** column name */
   ClosingHours = 'closing_hours',
   /** column name */
@@ -1348,6 +1371,22 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>,
 };
 
+export type FoodsQueryVariables = {
+  restaurantsId?: Maybe<Scalars['uuid']>
+};
+
+
+export type FoodsQuery = (
+  { __typename?: 'query_root' }
+  & { food_aggregate: (
+    { __typename?: 'food_aggregate' }
+    & { nodes: Array<(
+      { __typename?: 'food' }
+      & Pick<Food, 'description' | 'price' | 'name' | 'id' | 'created_at' | 'url'>
+    )> }
+  ) }
+);
+
 export type RestaurantsQueryVariables = {};
 
 
@@ -1363,6 +1402,38 @@ export type RestaurantsQuery = (
 );
 
 
+export const FoodsDocument = gql`
+    query Foods($restaurantsId: uuid) {
+  food_aggregate(where: {restaurantByRestaurant: {id: {_eq: $restaurantsId}}}) {
+    nodes {
+      description
+      price
+      name
+      id
+      created_at
+      url
+    }
+  }
+}
+    `;
+export type FoodsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<FoodsQuery, FoodsQueryVariables>, 'query'>;
+
+    export const FoodsComponent = (props: FoodsComponentProps) => (
+      <ApolloReactComponents.Query<FoodsQuery, FoodsQueryVariables> query={FoodsDocument} {...props} />
+    );
+    
+export type FoodsProps<TChildProps = {}> = ApolloReactHoc.DataProps<FoodsQuery, FoodsQueryVariables> & TChildProps;
+export function withFoods<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  FoodsQuery,
+  FoodsQueryVariables,
+  FoodsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, FoodsQuery, FoodsQueryVariables, FoodsProps<TChildProps>>(FoodsDocument, {
+      alias: 'foods',
+      ...operationOptions
+    });
+};
+export type FoodsQueryResult = ApolloReactCommon.QueryResult<FoodsQuery, FoodsQueryVariables>;
 export const RestaurantsDocument = gql`
     query Restaurants {
   restaurant_aggregate {

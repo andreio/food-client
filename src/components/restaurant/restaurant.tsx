@@ -1,7 +1,7 @@
 import React from 'react';
 import RX from 'reactxp';
 import { Restaurant as RestaurantType } from "../../generated-models";
-import { backgroundPrimaryColors, backgroundDarkSecondaryColors } from "../../styles/variables";
+import { useNavigationContext } from '../navigator/navigator';
 
 interface RestaurantProps {
     restaurant: RestaurantType
@@ -39,25 +39,26 @@ const nameStyle: RX.Types.TextStyle = {
 }
 
 
-export class Restaurant extends RX.Component<RestaurantProps> {
-    public render() {
-        const { address, closing_hours, name, rating, rating_count, starting_hours, url } = this.props.restaurant;
-        console.log(url);
-        return (
-            <RX.View style={restaurantStyle}>
-                {url && <RX.Image resizeMode="cover" style={imageStyle} source={url} />}
-                <RX.Text style={nameStyle}>{name}</RX.Text>
-                <RX.Text>{address}</RX.Text>
-                <RX.View style={ratingField}>
-                    <RX.Text>Rating: {rating}</RX.Text>
-                    <RX.Text>({rating_count})</RX.Text>
-                </RX.View>
-                <RX.View style={openingHours}>
-                    <RX.Text>Schedule: </RX.Text>
-                    <RX.Text>{starting_hours}</RX.Text>
-                    <RX.Text>{closing_hours}</RX.Text>
-                </RX.View>
+export const Restaurant = (props: RestaurantProps) => {
+    const { address, closing_hours, name, rating, rating_count, starting_hours, url, id } = props.restaurant;
+    const { navigate } = useNavigationContext();
+    const navigateCallback = React.useCallback(() => navigate("FoodList", {
+        restaurantId: id
+    }), [id]);
+    return (
+        <RX.View style={restaurantStyle} onPress={navigateCallback}>
+            {url && <RX.Image resizeMode="cover" style={imageStyle} source={url} />}
+            <RX.Text style={nameStyle}>{name}</RX.Text>
+            <RX.Text>{address}</RX.Text>
+            <RX.View style={ratingField}>
+                <RX.Text>Rating: {rating}</RX.Text>
+                <RX.Text>({rating_count})</RX.Text>
             </RX.View>
-        );
-    }
+            <RX.View style={openingHours}>
+                <RX.Text>Schedule: </RX.Text>
+                <RX.Text>{starting_hours}</RX.Text>
+                <RX.Text>{closing_hours}</RX.Text>
+            </RX.View>
+        </RX.View>
+    );
 }

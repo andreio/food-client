@@ -8,30 +8,27 @@ const restaurantsListStyle: RX.Types.ViewStyle = {
     flexDirection: "column",
     alignItems: "center",
     overflow: 'visible',
+    backgroundColor: "white"
 
 }
 
-export class RestaurantsList extends RX.Component {
-    public render() {
-        return (
-            <RestaurantsComponent>
-                {
-                    ({ data }) => {
-                        if (!data || !data.restaurant_aggregate) {
-                            return <RX.Text>Error</RX.Text>;
-                        }
-                        return (
-                            <RX.View style={restaurantsListStyle}>
-                                {
-                                    data.restaurant_aggregate.nodes.map(restaurant => (
-                                        <Restaurant key={restaurant.id} restaurant={restaurant}></Restaurant>
-                                    ))
-                                }
-                            </RX.View>
-                        );
-                    }
+export const RestaurantsList = () => (
+    <RestaurantsComponent>
+        {
+            ({ data }) => {
+                if (!data || !data.restaurant_aggregate) {
+                    return <RX.Text>Error</RX.Text>;
                 }
-            </RestaurantsComponent>
-        );
-    }
-}
+                return (
+                    <RX.View style={restaurantsListStyle}>
+                        {
+                            data.restaurant_aggregate.nodes.map(restaurant => (
+                                <Restaurant key={restaurant.id} restaurant={restaurant}></Restaurant>
+                            ))
+                        }
+                    </RX.View>
+                );
+            }
+        }
+    </RestaurantsComponent>
+);

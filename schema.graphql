@@ -1,5 +1,5 @@
 # source: http://notwasted2.herokuapp.com/v1/graphql
-# timestamp: Wed Nov 13 2019 23:51:06 GMT+0100 (CET)
+# timestamp: Thu Nov 14 2019 22:34:28 GMT+0100 (CET)
 
 schema {
   query: query_root
@@ -29,12 +29,18 @@ columns and relationships of "food"
 """
 type food {
   created_at: timestamptz!
-  description: String!
+  description: String
+
+  """An object relationship"""
+  food_type: food_type
   id: uuid!
   name: String!
   price: money!
   restaurant: uuid!
-  type: uuid!
+
+  """An object relationship"""
+  restaurantByRestaurant: restaurant!
+  type: uuid
   url: String!
 }
 
@@ -81,10 +87,12 @@ input food_bool_exp {
   _or: [food_bool_exp]
   created_at: timestamptz_comparison_exp
   description: String_comparison_exp
+  food_type: food_type_bool_exp
   id: uuid_comparison_exp
   name: String_comparison_exp
   price: money_comparison_exp
   restaurant: uuid_comparison_exp
+  restaurantByRestaurant: restaurant_bool_exp
   type: uuid_comparison_exp
   url: String_comparison_exp
 }
@@ -103,10 +111,12 @@ input type for inserting data into table "food"
 input food_insert_input {
   created_at: timestamptz
   description: String
+  food_type: food_type_obj_rel_insert_input
   id: uuid
   name: String
   price: money
   restaurant: uuid
+  restaurantByRestaurant: restaurant_obj_rel_insert_input
   type: uuid
   url: String
 }
@@ -181,10 +191,12 @@ ordering options when selecting data from "food"
 input food_order_by {
   created_at: order_by
   description: order_by
+  food_type: food_type_order_by
   id: order_by
   name: order_by
   price: order_by
   restaurant: order_by
+  restaurantByRestaurant: restaurant_order_by
   type: order_by
   url: order_by
 }
@@ -796,6 +808,7 @@ columns and relationships of "restaurant"
 """
 type restaurant {
   address: point!
+  address_name: String
   closing_hours: timetz!
   id: uuid!
   name: String!
@@ -877,6 +890,7 @@ input restaurant_bool_exp {
   _not: restaurant_bool_exp
   _or: [restaurant_bool_exp]
   address: point_comparison_exp
+  address_name: String_comparison_exp
   closing_hours: timetz_comparison_exp
   id: uuid_comparison_exp
   name: String_comparison_exp
@@ -909,6 +923,7 @@ input type for inserting data into table "restaurant"
 """
 input restaurant_insert_input {
   address: point
+  address_name: String
   closing_hours: timetz
   id: uuid
   name: String
@@ -920,6 +935,7 @@ input restaurant_insert_input {
 
 """aggregate max on columns"""
 type restaurant_max_fields {
+  address_name: String
   closing_hours: timetz
   name: String
   rating: float8
@@ -932,6 +948,7 @@ type restaurant_max_fields {
 order by max() on columns of table "restaurant"
 """
 input restaurant_max_order_by {
+  address_name: order_by
   closing_hours: order_by
   name: order_by
   rating: order_by
@@ -942,6 +959,7 @@ input restaurant_max_order_by {
 
 """aggregate min on columns"""
 type restaurant_min_fields {
+  address_name: String
   closing_hours: timetz
   name: String
   rating: float8
@@ -954,6 +972,7 @@ type restaurant_min_fields {
 order by min() on columns of table "restaurant"
 """
 input restaurant_min_order_by {
+  address_name: order_by
   closing_hours: order_by
   name: order_by
   rating: order_by
@@ -995,6 +1014,7 @@ ordering options when selecting data from "restaurant"
 """
 input restaurant_order_by {
   address: order_by
+  address_name: order_by
   closing_hours: order_by
   id: order_by
   name: order_by
@@ -1010,6 +1030,9 @@ select columns of table "restaurant"
 enum restaurant_select_column {
   """column name"""
   address
+
+  """column name"""
+  address_name
 
   """column name"""
   closing_hours
@@ -1038,6 +1061,7 @@ input type for updating data in table "restaurant"
 """
 input restaurant_set_input {
   address: point
+  address_name: String
   closing_hours: timetz
   id: uuid
   name: String
@@ -1109,6 +1133,9 @@ update columns of table "restaurant"
 enum restaurant_update_column {
   """column name"""
   address
+
+  """column name"""
+  address_name
 
   """column name"""
   closing_hours

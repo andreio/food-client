@@ -10336,6 +10336,11 @@ react@16.10.2:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
 
+reactxp-experimental-navigation@1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/reactxp-experimental-navigation/-/reactxp-experimental-navigation-1.0.14.tgz#65810f02d617ef1a9d1b99b0ab21803e6fb43e59"
+  integrity sha512-6Wkko3d/hD5zrr8H4yVDs/HhenvvJA8bL/1pf8IZRqrG/AQyA4Y7Aikexpfzoda0nj0bD9EoVrG1Y1TOYqaipA==
+
 reactxp-map@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/reactxp-map/-/reactxp-map-0.2.1.tgz#0df81fe49dd29dfad757bcaacd562f672e49cd1b"
@@ -10345,6 +10350,15 @@ reactxp-map@^0.2.1:
     react-native-geolocation-service "^2.0.1"
     react-native-maps "^0.24.2"
     react-native-maps-directions "^1.7.0"
+
+reactxp-navigation@^2.0.0-rc.1:
+  version "2.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/reactxp-navigation/-/reactxp-navigation-2.0.0-rc.1.tgz#bdeeb68c95a469f95198ae9a94581608e2365da8"
+  integrity sha512-CFiDtugSIbWQkPk5GK7Vsxz9GJ7XSoC2z6kF4daShqJSIPuh4Nd0OIEnmbqYdB4di9ht0BANi0wGJ2NtjNWzVQ==
+  dependencies:
+    lodash "^4.17.11"
+    reactxp-experimental-navigation "1.0.14"
+    rebound "^0.1.0"
 
 reactxp@2.0.0-rc.1:
   version "2.0.0-rc.1"

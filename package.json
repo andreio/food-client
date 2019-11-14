@@ -82,6 +82,7 @@
     "react-native-maps": "0.26.1",
     "react-native-windows": "0.59.0-rc.3",
     "reactxp": "2.0.0-rc.1",
-    "reactxp-map": "^0.2.1"
+    "reactxp-map": "^0.2.1",
+    "reactxp-navigation": "^2.0.0-rc.1"
   }
 }
