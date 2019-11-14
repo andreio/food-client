@@ -21,7 +21,7 @@ export const FoodList = () => {
     const { navigatorState, goBack } = useNavigationContext();
     const restaurantId = navigatorState.FoodList.restaurantId;
     return (
-        <FoodsComponent>
+        <FoodsComponent variables={{ restaurantsId: restaurantId }}>
             {
                 ({ data }) => {
                     if (!data || !data.food_aggregate) {
