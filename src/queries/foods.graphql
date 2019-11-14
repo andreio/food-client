@@ -1,0 +1,14 @@
+query Foods($restaurantsId: uuid) {
+  food_aggregate(
+    where: { restaurantByRestaurant: { id: { _eq: $restaurantsId } } }
+  ) {
+    nodes {
+      description
+      price
+      name
+      id
+      created_at
+      url
+    }
+  }
+}
