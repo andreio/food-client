@@ -5,7 +5,9 @@ import * as React from "react";
 import { RestaurantsList } from '../restaurantsList/restaurants-list';
 import { FoodList } from '../foodList/foodList';
 
-const NavigationRouteId = {
+export type Pages = "Home" | "FoodList" | "User" | "RestaurantDetails" | "OrderList" | "OrderDetails";
+
+export const NavigationRouteId: { [type in Pages]: number } = {
     Home: 0,
     FoodList: 1,
     User: 2,
@@ -14,7 +16,7 @@ const NavigationRouteId = {
     OrderDetails: 5
 };
 
-type RouteState = {
+export type RouteState = {
     Home: {},
     FoodList: {
         restaurantId: string
@@ -26,7 +28,8 @@ type RouteState = {
 };
 
 type AppNavigatorState = {
-    routeState: RouteState
+    routeState: RouteState,
+    page: Pages
 }
 
 export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
@@ -44,7 +47,8 @@ export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
                 OrderList: {},
                 RestaurantDetails: {},
                 User: {}
-            }
+            },
+            page: "Home"
         };
     }
 
@@ -67,14 +71,15 @@ export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
         this._navigator = navigator;
     }
 
-    navigate = <K extends keyof typeof NavigationRouteId>(routeId: K, data: RouteState[K]): void => {
+    navigate = <K extends Pages>(page: K, data: RouteState[K]): void => {
         this.setState({
             routeState: {
                 ...this.state.routeState,
-                [routeId]: data
-            }
+                [page]: data
+            },
+            page
         }, () => this._navigator!!!.push({
-            routeId: NavigationRouteId[routeId],
+            routeId: NavigationRouteId[page],
             sceneConfigType:
                 Types.NavigatorSceneConfigType.FloatFromRight
         }));
@@ -92,7 +97,8 @@ export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
             navigate: this.navigate,
             goBack: this.goBack,
             navigatorState: this.state.routeState,
-            route: navigatorRoute
+            route: navigatorRoute,
+            page: this.state.page
         }
 
         return (
@@ -105,9 +111,10 @@ export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
 
 export interface INavigationContext {
     route: Types.NavigatorRoute;
-    navigate: <K extends keyof typeof NavigationRouteId>(routeId: K, data: RouteState[K]) => void;
+    navigate: <K extends Pages>(routeId: K, data: RouteState[K]) => void;
     goBack: () => void;
     navigatorState: RouteState;
+    page: Pages;
 }
 
 const NavigationContext = React.createContext<INavigationContext>({} as INavigationContext);

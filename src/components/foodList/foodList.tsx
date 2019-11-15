@@ -1,8 +1,9 @@
 import React from 'react';
 import RX from 'reactxp';
 import { FoodsComponent } from "../../generated-models";
-import { useNavigationContext } from '../navigator/navigator';
+import { INavigationContext } from '../navigator/navigator';
 import { Food } from '../food/food';
+import { WithNavigation } from '../navigator/navigatorPage';
 
 const restaurantsListStyle: RX.Types.ViewStyle = {
     flex: 1,
@@ -17,9 +18,9 @@ const backStyle: RX.Types.TextStyle = {
     fontWeight: "600"
 }
 
-export const FoodList = () => {
-    const { navigatorState, goBack } = useNavigationContext();
-    const restaurantId = navigatorState.FoodList.restaurantId;
+
+const FoodListInternal = (props: INavigationContext) => {
+    const { restaurantId } = props.navigatorState.FoodList;
     return (
         <FoodsComponent variables={{ restaurantsId: restaurantId }}>
             {
@@ -30,7 +31,7 @@ export const FoodList = () => {
                     return (
                         <RX.View style={restaurantsListStyle}>
                             <RX.Text>{restaurantId}</RX.Text>
-                            <RX.Text style={backStyle} onPress={goBack}>Back to restaurants</RX.Text>
+                            <RX.Text style={backStyle} onPress={props.goBack}>Back to restaurants</RX.Text>
                             {
                                 data.food_aggregate.nodes.map(food => (
                                     <Food key={food.id} food={food}></Food>
@@ -43,3 +44,5 @@ export const FoodList = () => {
         </FoodsComponent>
     );
 };
+
+export const FoodList = WithNavigation(FoodListInternal);
