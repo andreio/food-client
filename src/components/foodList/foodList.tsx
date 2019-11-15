@@ -1,9 +1,8 @@
 import React from 'react';
 import RX from 'reactxp';
 import { FoodsComponent } from "../../generated-models";
-import { INavigationContext } from '../navigator/navigator';
+import { INavigationContext, WithNavigationContext } from '../navigator/navigator';
 import { Food } from '../food/food';
-import { WithNavigation } from '../navigator/navigatorPage';
 
 const restaurantsListStyle: RX.Types.ViewStyle = {
     flex: 1,
@@ -45,4 +44,4 @@ const FoodListInternal = (props: INavigationContext) => {
     );
 };
 
-export const FoodList = WithNavigation(FoodListInternal);
+export const FoodList = WithNavigationContext(FoodListInternal);

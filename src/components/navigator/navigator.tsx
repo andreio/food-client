@@ -120,3 +120,13 @@ export interface INavigationContext {
 const NavigationContext = React.createContext<INavigationContext>({} as INavigationContext);
 
 export const useNavigationContext = () => React.useContext(NavigationContext);
+
+export const WithNavigationContext = <P extends INavigationContext>(Klazz: (p: P) => JSX.Element) => (props: any) => {
+    const { route, page, navigate, goBack, navigatorState } = useNavigationContext();
+    return (<Klazz {...props}
+        navigatioRoute={route}
+        page={page}
+        navigate={navigate}
+        goBack={goBack}
+        navigatorState={navigatorState} />);
+};
