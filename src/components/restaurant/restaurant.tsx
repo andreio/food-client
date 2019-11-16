@@ -8,7 +8,7 @@ interface RestaurantProps {
 }
 
 const imageStyle: RX.Types.ImageStyle = {
-    width: 500,
+    width: 300,
     height: 100
 }
 
