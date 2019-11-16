@@ -5,25 +5,47 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - FacebookSDK (4.44.1):
+    - Bolts (~> 1.9)
+    - FacebookSDK/CoreKit (= 4.44.1)
+    - FacebookSDK/MarketingKit (= 4.44.1)
+  - FacebookSDK/CoreKit (4.44.1):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit
+  - FacebookSDK/LoginKit (4.44.1):
+    - Bolts (~> 1.9)
+    - FacebookSDK/CoreKit
+    - FBSDKLoginKit
+  - FacebookSDK/MarketingKit (4.44.1):
+    - Bolts (~> 1.9)
+    - FacebookSDK/CoreKit
+    - FBSDKMarketingKit
   - FBSDKCoreKit (4.44.1):
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.44.1):
     - FBSDKCoreKit
+  - FBSDKMarketingKit (4.38.0):
+    - FBSDKCoreKit
 
 DEPENDENCIES:
-  - FBSDKLoginKit
+  - FacebookSDK
+  - FacebookSDK/LoginKit
 
 SPEC REPOS:
   trunk:
     - Bolts
+    - FacebookSDK
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - FBSDKMarketingKit
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FacebookSDK: 98dd798abb2fe8148d010d30f5d9b4b47bc30922
   FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
   FBSDKLoginKit: 54ae59987f2a8703021557c90a9aebb9e5c2bef6
+  FBSDKMarketingKit: e609f39d74ab273cf52e2f8b7e8829ed412b2827
 
-PODFILE CHECKSUM: c0f34e7cb1baeb1e19a8b916a3fbb081f7ce017d
+PODFILE CHECKSUM: ad76cdd079eafddbcb0b17dbac29c8ada14a9cd0
 
 COCOAPODS: 1.8.4

@@ -27,5 +27,6 @@ target 'food-tvOS' do
 
 end
 
-pod 'FBSDKLoginKit'
+pod 'FacebookSDK'
+pod 'FacebookSDK/LoginKit'
 
