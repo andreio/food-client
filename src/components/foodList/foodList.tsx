@@ -1,8 +1,8 @@
 import React from 'react';
 import RX from 'reactxp';
 import { FoodsComponent } from "../../generated-models";
-import { INavigationContext, WithNavigationContext } from '../navigator/navigator';
 import { Food } from '../food/food';
+import { INavigationContext, WithNavigationContext } from '../navigator/navigationContext';
 
 const restaurantsListStyle: RX.Types.ViewStyle = {
     flex: 1,

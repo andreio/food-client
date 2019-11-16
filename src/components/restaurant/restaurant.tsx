@@ -1,7 +1,7 @@
 import React from 'react';
 import RX from 'reactxp';
 import { Restaurant as RestaurantType } from "../../generated-models";
-import { useNavigationContext } from '../navigator/navigator';
+import { useNavigationContext } from '../navigator/navigationContext';
 
 interface RestaurantProps {
     restaurant: RestaurantType

@@ -4,6 +4,7 @@ import Navigator, { Types } from 'reactxp-navigation';
 import * as React from "react";
 import { RestaurantsList } from '../restaurantsList/restaurants-list';
 import { FoodList } from '../foodList/foodList';
+import { NavigationContext, INavigationContext } from "./navigationContext";
 
 export type Pages = "Home" | "FoodList" | "User" | "RestaurantDetails" | "OrderList" | "OrderDetails";
 
@@ -109,24 +110,3 @@ export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
     }
 }
 
-export interface INavigationContext {
-    route: Types.NavigatorRoute;
-    navigate: <K extends Pages>(routeId: K, data: RouteState[K]) => void;
-    goBack: () => void;
-    navigatorState: RouteState;
-    page: Pages;
-}
-
-const NavigationContext = React.createContext<INavigationContext>({} as INavigationContext);
-
-export const useNavigationContext = () => React.useContext(NavigationContext);
-
-export const WithNavigationContext = <P extends INavigationContext>(Klazz: (p: P) => JSX.Element) => (props: any) => {
-    const { route, page, navigate, goBack, navigatorState } = useNavigationContext();
-    return (<Klazz {...props}
-        navigatioRoute={route}
-        page={page}
-        navigate={navigate}
-        goBack={goBack}
-        navigatorState={navigatorState} />);
-};
