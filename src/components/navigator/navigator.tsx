@@ -5,8 +5,15 @@ import * as React from "react";
 import { RestaurantsList } from '../restaurantsList/restaurants-list';
 import { FoodList } from '../foodList/foodList';
 import { NavigationContext, INavigationContext } from "./navigationContext";
+import { Login } from '../login/login';
 
-export type Pages = "Home" | "FoodList" | "User" | "RestaurantDetails" | "OrderList" | "OrderDetails";
+export type Pages = "Home" | "FoodList" | "User" | "RestaurantDetails" | "OrderList" | "OrderDetails" | "Login";
+export type User = {
+    accessToken: string;
+    id: string;
+    name?: string;
+    pictureUrl: string;
+} & { picture: { data: { url: string } } };
 
 export const NavigationRouteId: { [type in Pages]: number } = {
     Home: 0,
@@ -14,7 +21,8 @@ export const NavigationRouteId: { [type in Pages]: number } = {
     User: 2,
     RestaurantDetails: 3,
     OrderList: 4,
-    OrderDetails: 5
+    OrderDetails: 5,
+    Login: 6
 };
 
 export type RouteState = {
@@ -25,12 +33,14 @@ export type RouteState = {
     User: {},
     RestaurantDetails: {},
     OrderList: {},
-    OrderDetails: {}
+    OrderDetails: {},
+    Login: {}
 };
 
 type AppNavigatorState = {
     routeState: RouteState,
-    page: Pages
+    page: Pages,
+    user: User | null
 }
 
 export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
@@ -47,9 +57,11 @@ export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
                 OrderDetails: {},
                 OrderList: {},
                 RestaurantDetails: {},
-                User: {}
+                User: {},
+                Login: {}
             },
-            page: "Home"
+            page: "Login",
+            user: null
         };
     }
 
@@ -65,7 +77,7 @@ export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
     private _onNavigatorRef = (navigator: Navigator) => {
         if (navigator && !this._navigator) {
             navigator.immediatelyResetRouteStack([{
-                routeId: NavigationRouteId.Home,
+                routeId: NavigationRouteId.Login,
                 sceneConfigType: Types.NavigatorSceneConfigType.Fade
             }]);
         }
@@ -87,19 +99,29 @@ export class AppNavigator extends RX.Component<undefined, AppNavigatorState> {
     }
 
     goBack = () => this._navigator!!!.pop();
+    onLogin = (user: User) => {
+        this.setState({ user }, () => this.navigate("Home", {}));
+    };
 
     private _renderScene = (navigatorRoute: Types.NavigatorRoute) => {
-        let renderedRoute: JSX.Element = (<RestaurantsList />);
-        switch (navigatorRoute.routeId) {
-            case NavigationRouteId.FoodList:
-                renderedRoute = <FoodList />
+        let renderedRoute: JSX.Element = (<Login />);
+        if (this.state.user !== null) {
+            switch (navigatorRoute.routeId) {
+                case NavigationRouteId.FoodList:
+                    renderedRoute = <FoodList />
+                    break;
+                case NavigationRouteId.Home:
+                    renderedRoute = <RestaurantsList />
+            }
         }
         const context: INavigationContext = {
             navigate: this.navigate,
             goBack: this.goBack,
             navigatorState: this.state.routeState,
             route: navigatorRoute,
-            page: this.state.page
+            page: this.state.page,
+            onLogin: this.onLogin,
+            user: this.state.user
         }
 
         return (

@@ -1,5 +1,6 @@
 package com.food;
-
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {

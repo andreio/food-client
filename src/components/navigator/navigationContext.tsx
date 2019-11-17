@@ -1,7 +1,7 @@
 
 import { Types } from 'reactxp-navigation';
 import * as React from "react";
-import { RouteState, Pages } from './navigator';
+import { RouteState, Pages, User } from './navigator';
 
 export interface INavigationContext {
     route: Types.NavigatorRoute;
@@ -9,18 +9,10 @@ export interface INavigationContext {
     goBack: () => void;
     navigatorState: RouteState;
     page: Pages;
+    onLogin: (user: User) => void;
+    user: User | null;
 }
 
 export const NavigationContext = React.createContext<INavigationContext>({} as INavigationContext);
 
 export const useNavigationContext = () => React.useContext(NavigationContext);
-
-export const WithNavigationContext = <P extends INavigationContext>(Klazz: (p: P) => JSX.Element) => (props: any) => {
-    const { route, page, navigate, goBack, navigatorState } = useNavigationContext();
-    return (<Klazz {...props}
-        navigatioRoute={route}
-        page={page}
-        navigate={navigate}
-        goBack={goBack}
-        navigatorState={navigatorState} />);
-};
