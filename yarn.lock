@@ -10649,7 +10649,7 @@ reactxp-navigation@^2.0.0-rc.1:
     reactxp-experimental-navigation "1.0.14"
     rebound "^0.1.0"
 
-reactxp@^2.0.0-rc.2:
+reactxp@^2.0.0-rc.1:
   version "2.0.0-rc.2"
   resolved "https://registry.yarnpkg.com/reactxp/-/reactxp-2.0.0-rc.2.tgz#c7b439c4d9cdf90561948497affdd521df2046c2"
   integrity sha512-od3WNZY6zjWFpxw+NAR4+t2EaTPAc/NVGNM1s3eTjhptoq/nvmo9QeNvot5IgbXEoS1cvWQFYCB3WiBGA6GRcQ==
