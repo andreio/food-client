@@ -1,11 +1,10 @@
 import * as React from "react";
 import * as RX from "reactxp";
 import { NavigationContext } from '../navigator/navigationContext';
-import { LoginButton } from "react-native-fbsdk";
+import FacebookLoginWeb from "react-facebook-login";
 import { User } from '../navigator/navigator';
 function getFacebookLoginButton(onLogin: (user: User) => void) {
     if (window.location) {
-        const FacebookLoginWeb = require("react-facebook-login");
         return (
             <FacebookLoginWeb
                 appId="943794862660909"
@@ -16,13 +15,9 @@ function getFacebookLoginButton(onLogin: (user: User) => void) {
             />
         );
     }
-    const FacebookLoginNative = require("react-native-fbsdk");
-
-    return (
-        <LoginButton onLoginFinished={(error, loginresult) => { alert(JSON.stringify(loginresult)) }} />
-    );
+    // replace with native button
+    return null;
 }
-
 export class Login extends RX.Component {
     render() {
         return (
